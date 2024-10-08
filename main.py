@@ -1,9 +1,13 @@
-# step 1: import requests
 
-# step 2: call api with given endpoint and key
+from dotenv import dotenv_values
+import requests
 
-# step 3: convert to dictionary and grab only the "data" value
 
-# step 4: loop through the flights and check which flights are active
+dotenv=dotenv_values('.env')
 
-# step 5: if active, print the airline, date, departure airport and arrival airport
+import requests
+response=requests.get('https://api.aviationstack.com/v1/flights?access_key='+dotenv["API"])
+for flight in response.json()['data']:
+    if flight['flight_status']=='active':
+        print('airline'+flight['airline']['name']+flight['departure']['airport'])
+
